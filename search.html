@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K87ZS5RQ');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<title>Search Results</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* HEADER */
+header {
+  background: #111;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  width: 220px;
+}
+
+/* TITLE */
+.title {
+  padding: 30px;
+}
+
+.title h2 {
+  margin: 0;
+}
+
+.title p {
+  color: #555;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+  gap: 30px;
+  padding: 0 30px 60px;
+}
+
+/* PRODUCT CARD */
+.product {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.7s ease forwards;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.product .info {
+  padding: 18px;
+}
+
+.product h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.product p {
+  margin: 8px 0;
+  font-weight: bold;
+}
+
+.product:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 80px;
+  color: #777;
+  font-size: 18px;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K87ZS5RQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<header>
+  <strong>E-Store</strong>
+
+  <form class="search-box" action="search.html">
+    <input type="text" name="q" placeholder="Search products..." />
+  </form>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+    <a href="support.html">Support</a>
+  </nav>
+</header>
+
+<div class="title">
+  <h2 id="resultTitle"></h2>
+  <p id="resultCount"></p>
+</div>
+
+<section class="grid" id="results"></section>
+
+<div class="empty" id="empty" style="display:none">
+  😔 No products found. Try something else.
+</div>
+
+<script>
+/* PRODUCT DATA */
+const products = [
+  {id:1, name:"Running Shoes", price:2999, category:"shoes", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"},
+  {id:2, name:"Casual Sneakers", price:2499, category:"shoes", img:"https://images.unsplash.com/photo-1519744792095-2f2205e87b6f"},
+  {id:3, name:"Sports Shoes", price:3499, category:"shoes", img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"},
+  {id:4, name:"Formal Leather Shoes", price:3999, category:"shoes", img:"https://images.unsplash.com/photo-1618354691373-73fdf9b4c8c4"},
+
+  {id:5, name:"Atomic Habits", price:499, category:"books", img:"https://images.unsplash.com/photo-1512820790803-83ca734da794"},
+  {id:6, name:"Think Like a Monk", price:399, category:"books", img:"https://images.unsplash.com/photo-1528207776546-365bb710ee93"},
+
+  {id:7, name:"Men T-Shirt", price:799, category:"clothes", img:"https://images.unsplash.com/photo-1521334884684-d80222895322"},
+  {id:8, name:"Women Kurti", price:1299, category:"clothes", img:"https://images.unsplash.com/photo-1520975916090-3105956dac38"},
+
+  {id:9, name:"Laptop Backpack", price:1999, category:"bags", img:"https://images.unsplash.com/photo-1593032465175-481ac7f401a0"},
+  {id:10, name:"Travel Duffel Bag", price:2499, category:"bags", img:"https://images.unsplash.com/photo-1585386959984-a41552231694"},
+
+  {id:11, name:"Steel Water Bottle", price:599, category:"bottles", img:"https://images.unsplash.com/photo-1602143407151-7111542de6e8"},
+  {id:12, name:"Insulated Bottle", price:899, category:"bottles", img:"https://images.unsplash.com/photo-1615486364462-ef636f92a0b6"}
+];
+
+/* GET QUERY */
+const q = new URLSearchParams(window.location.search).get("q")?.toLowerCase() || "";
+
+document.getElementById("resultTitle").innerText =
+  q ? `Results for "${q}"` : "All Products";
+
+/* FILTER (FIXED & CASE-INSENSITIVE) */
+const filtered = products.filter(p =>
+  p.name.toLowerCase().includes(q) ||
+  p.category.toLowerCase().includes(q) ||
+  q.includes(p.category.toLowerCase())
+);
+
+document.getElementById("resultCount").innerText =
+  `${filtered.length} products found`;
+
+const container = document.getElementById("results");
+const empty = document.getElementById("empty");
+
+/* RENDER */
+if (filtered.length === 0) {
+  empty.style.display = "block";
+}
+
+filtered.forEach((p, i) => {
+  const card = document.createElement("div");
+  card.className = "product";
+  card.style.animationDelay = `${i * 0.1}s`;
+
+  card.innerHTML = `
+    <img src="${p.img}">
+    <div class="info">
+      <h3>${p.name}</h3>
+      <p>₹${p.price}</p>
+    </div>
+  `;
+
+  card.onclick = () => {
+    window.location.href = "product.html?id=" + p.id;
+  };
+
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>

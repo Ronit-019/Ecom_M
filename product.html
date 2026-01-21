@@ -1,0 +1,452 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Product Details</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* HEADER */
+header {
+  background: #111;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+/* PRODUCT LAYOUT */
+.container {
+  max-width: 1100px;
+  margin: 60px auto;
+  background: white;
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  animation: fadeIn 0.8s ease;
+}
+
+/* IMAGE */
+.image img {
+  width: 100%;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+/* DETAILS */
+.details h1 {
+  margin-top: 0;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.price span {
+  font-size: 18px;
+  color: #888;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.discount {
+  color: green;
+  font-weight: bold;
+}
+
+.rating {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.specs {
+  margin: 25px 0;
+}
+
+.specs li {
+  margin-bottom: 8px;
+}
+
+/* BUTTON */
+.btn {
+  padding: 14px 26px;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+/* RESPONSIVE */
+@media(max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <strong>E-Store</strong>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="image">
+    <img id="img">
+  </div>
+
+  <div class="details">
+    <h1 id="name"></h1>
+
+    <div class="rating" id="rating"></div>
+
+    <div class="price">
+      ₹<span id="price"></span>
+      <span id="original"></span>
+    </div>
+
+    <p class="discount" id="discount"></p>
+
+    <ul class="specs" id="specs"></ul>
+
+    <button class="btn" onclick="addToCart()">Add to Cart</button>
+  </div>
+</div>
+
+<script>
+const products = [
+  {
+    id: 1,
+    name: "Running Shoes",
+    category: "Shoes",
+    price: 2999,
+    original: 3999,
+    rating: 4.5,
+    material: "Mesh & Rubber",
+    description: "Lightweight running shoes designed for comfort and durability.",
+    img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+  },
+  {
+    id: 5,
+    name: "Atomic Habits",
+    category: "Books",
+    price: 499,
+    original: 699,
+    rating: 4.8,
+    material: "Paperback",
+    description: "A practical guide to building good habits and breaking bad ones.",
+    img: "https://images.unsplash.com/photo-1512820790803-83ca734da794"
+  },
+  {
+    id: 7,
+    name: "Men T-Shirt",
+    category: "Clothes",
+    price: 799,
+    original: 1199,
+    rating: 4.2,
+    material: "100% Cotton",
+    description: "Comfortable everyday t-shirt with premium cotton fabric.",
+    img: "https://images.unsplash.com/photo-1521334884684-d80222895322"
+  }
+];
+
+const id = new URLSearchParams(window.location.search).get("id");
+const product = products.find(p => p.id == id);
+
+/* SAFETY CHECK */
+if (!product) {
+  alert("Product not found");
+  window.location.href = "index.html";
+}
+
+/* SET PRODUCT DATA */
+document.getElementById("img").src = product.img;
+document.getElementById("name").innerText = product.name;
+document.getElementById("rating").innerText = `⭐ ${product.rating} / 5`;
+document.getElementById("price").innerText = product.price;
+document.getElementById("original").innerText = `₹${product.original}`;
+
+const discount = Math.round(
+  ((product.original - product.price) / product.original) * 100
+);
+document.getElementById("discount").innerText = `${discount}% OFF`;
+
+document.getElementById("specs").innerHTML = `
+  <li><strong>Category:</strong> ${product.category}</li>
+  <li><strong>Material:</strong> ${product.material}</li>
+  <li><strong>Description:</strong> ${product.description}</li>
+`;
+
+/* ✅ UPDATED ADD TO CART */
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const existingItem = cart.find(item => item.id === product.id);
+
+  if (existingItem) {
+    existingItem.qty += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      img: product.img,
+      qty: 1
+    });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  window.location.href = "cart.html";
+}
+</script>
+
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K87ZS5RQ');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<title>Product Details</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* HEADER */
+header {
+  background: #111;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+/* PRODUCT */
+.container {
+  max-width: 1100px;
+  margin: 60px auto;
+  background: white;
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 40px;
+  animation: fadeIn 0.6s ease;
+}
+
+.image img {
+  width: 100%;
+  border-radius: 14px;
+}
+
+.details h1 {
+  margin-top: 0;
+}
+
+.price {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.price span {
+  font-size: 18px;
+  color: #888;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.discount {
+  color: green;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.rating {
+  margin: 10px 0;
+}
+
+.specs li {
+  margin-bottom: 8px;
+}
+
+.btn {
+  padding: 14px 26px;
+  background: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media(max-width:900px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K87ZS5RQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<header>
+  <strong>E-Store</strong>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<div class="container" id="productBox" style="display:none">
+  <div class="image">
+    <img id="img">
+  </div>
+
+  <div class="details">
+    <h1 id="name"></h1>
+    <div class="rating" id="rating"></div>
+
+    <div class="price">
+      ₹<span id="price"></span>
+      <span id="original"></span>
+    </div>
+
+    <div class="discount" id="discount"></div>
+
+    <ul class="specs" id="specs"></ul>
+
+    <button class="btn" onclick="addToCart()">Add to Cart</button>
+  </div>
+</div>
+
+<script>
+/* 🔑 SAME PRODUCTS AS SEARCH PAGE */
+const products = [
+  {id:1, name:"Running Shoes", price:2999, original:3999, rating:4.5, category:"shoes", material:"Mesh & Rubber", img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff"},
+  {id:2, name:"Casual Sneakers", price:2499, original:3499, rating:4.3, category:"shoes", material:"Synthetic", img:"https://images.unsplash.com/photo-1519744792095-2f2205e87b6f"},
+  {id:3, name:"Sports Shoes", price:3499, original:4499, rating:4.6, category:"shoes", material:"Mesh", img:"https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"},
+  {id:4, name:"Formal Leather Shoes", price:3999, original:4999, rating:4.4, category:"shoes", material:"Leather", img:"https://images.unsplash.com/photo-1618354691373-73fdf9b4c8c4"},
+
+  {id:5, name:"Atomic Habits", price:499, original:699, rating:4.8, category:"books", material:"Paperback", img:"https://images.unsplash.com/photo-1512820790803-83ca734da794"},
+  {id:6, name:"Think Like a Monk", price:399, original:599, rating:4.7, category:"books", material:"Paperback", img:"https://images.unsplash.com/photo-1528207776546-365bb710ee93"},
+
+  {id:7, name:"Men T-Shirt", price:799, original:1199, rating:4.2, category:"clothes", material:"100% Cotton", img:"https://images.unsplash.com/photo-1521334884684-d80222895322"},
+  {id:8, name:"Women Kurti", price:1299, original:1799, rating:4.4, category:"clothes", material:"Rayon", img:"https://images.unsplash.com/photo-1520975916090-3105956dac38"},
+
+  {id:9, name:"Laptop Backpack", price:1999, original:2599, rating:4.5, category:"bags", material:"Polyester", img:"https://images.unsplash.com/photo-1593032465175-481ac7f401a0"},
+  {id:10, name:"Travel Duffel Bag", price:2499, original:3299, rating:4.3, category:"bags", material:"Canvas", img:"https://images.unsplash.com/photo-1585386959984-a41552231694"},
+
+  {id:11, name:"Steel Water Bottle", price:599, original:899, rating:4.6, category:"bottles", material:"Stainless Steel", img:"https://images.unsplash.com/photo-1602143407151-7111542de6e8"},
+  {id:12, name:"Insulated Bottle", price:899, original:1299, rating:4.7, category:"bottles", material:"Steel + Plastic", img:"https://images.unsplash.com/photo-1615486364462-ef636f92a0b6"}
+];
+
+const id = parseInt(new URLSearchParams(window.location.search).get("id"));
+const product = products.find(p => p.id === id);
+
+if (!product) {
+  alert("Product not found");
+  window.location.href = "search.html";
+}
+
+/* RENDER */
+document.getElementById("productBox").style.display = "grid";
+document.getElementById("img").src = product.img;
+document.getElementById("name").innerText = product.name;
+document.getElementById("rating").innerText = `⭐ ${product.rating} / 5`;
+document.getElementById("price").innerText = product.price;
+document.getElementById("original").innerText = `₹${product.original}`;
+
+const discount = Math.round((product.original - product.price) / product.original * 100);
+document.getElementById("discount").innerText = `${discount}% OFF`;
+
+document.getElementById("specs").innerHTML = `
+  <li><strong>Category:</strong> ${product.category}</li>
+  <li><strong>Material:</strong> ${product.material}</li>
+`;
+
+/* ADD TO CART */
+function addToCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const item = cart.find(i => i.id === product.id);
+  if (item) item.qty += 1;
+  else cart.push({ id: product.id, name: product.name, price: product.price, img: product.img, qty: 1 });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  window.location.href = "cart.html";
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K87ZS5RQ');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<title>E-Store | Home</title>
+
+<style>
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* HEADER */
+header {
+  background: #111;
+  color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  width: 220px;
+}
+
+/* HERO */
+.hero {
+  height: 80vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("https://images.unsplash.com/photo-1523275335684-37898b6baf30");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1.5s ease;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.hero .btn {
+  margin-top: 25px;
+  padding: 14px 26px;
+  background: #ffcc00;
+  color: black;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.hero .btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* CATEGORIES */
+.categories {
+  padding: 60px 40px;
+}
+
+.categories h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 30px;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateY(30px);
+  opacity: 0;
+  animation: slideUp 0.8s ease forwards;
+}
+
+.card:nth-child(1){animation-delay:0.1s}
+.card:nth-child(2){animation-delay:0.2s}
+.card:nth-child(3){animation-delay:0.3s}
+.card:nth-child(4){animation-delay:0.4s}
+.card:nth-child(5){animation-delay:0.5s}
+
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.card div {
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #111;
+  color: white;
+  margin-top: 60px;
+}
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K87ZS5RQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<header>
+  <strong>E-Store</strong>
+
+  <form class="search-box" action="search.html">
+    <input type="text" name="q" placeholder="Search products..." />
+  </form>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+    <a href="account.html">Account</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Shop Smarter. Live Better.</h1>
+  <p>Books • Clothes • Shoes • Bags • Bottles</p>
+  <a href="search.html?q=shoes" class="btn">Start Shopping</a>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <h2>Shop by Category</h2>
+
+  <div class="grid">
+    <div class="card" onclick="goTo('books')">
+      <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794">
+      <div>📚 Books</div>
+    </div>
+
+    <div class="card" onclick="goTo('clothes')">
+      <img src="https://images.unsplash.com/photo-1521334884684-d80222895322">
+      <div>👕 Clothes</div>
+    </div>
+
+    <div class="card" onclick="goTo('shoes')">
+      <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff">
+      <div>👟 Shoes</div>
+    </div>
+
+    <div class="card" onclick="goTo('bags')">
+      <img src="https://images.unsplash.com/photo-1593032465175-481ac7f401a0">
+      <div>👜 Bags</div>
+    </div>
+
+    <div class="card" onclick="goTo('bottles')">
+      <img src="https://images.unsplash.com/photo-1602143407151-7111542de6e8">
+      <div>🍼 Bottles</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 E-Store | Ecommerce Analytics Project
+</footer>
+
+<script>
+function goTo(category) {
+  window.location.href = "search.html?q=" + category;
+}
+</script>
+
+</body>
+</html>

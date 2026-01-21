@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K87ZS5RQ');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<title>Order Confirmed</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* HEADER */
+header {
+  background: #111;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  background: white;
+  padding: 50px;
+  border-radius: 16px;
+  text-align: center;
+  animation: fadeIn 0.7s ease;
+}
+
+/* CHECK ICON */
+.check {
+  font-size: 70px;
+  color: green;
+}
+
+/* ORDER INFO */
+.order-id {
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.section {
+  text-align: left;
+  margin-top: 40px;
+}
+
+.section h3 {
+  margin-bottom: 15px;
+}
+
+/* LIST */
+.item {
+  margin-bottom: 8px;
+}
+
+/* BUTTON */
+.btn {
+  margin-top: 40px;
+  padding: 14px 26px;
+  background: #ffcc00;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K87ZS5RQ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<header>
+  <strong>E-Store</strong>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="account.html">My Orders</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="check">✅</div>
+
+  <h1>Thank You for Your Order!</h1>
+  <p>Your order has been placed successfully.</p>
+
+  <div class="order-id">
+    Order ID: <span id="orderId"></span>
+  </div>
+
+  <!-- ORDER SUMMARY -->
+  <div class="section">
+    <h3>Order Summary</h3>
+    <div id="items"></div>
+    <strong>Total Paid: ₹<span id="total"></span></strong>
+  </div>
+
+  <!-- ADDRESS -->
+  <div class="section">
+    <h3>Shipping Address</h3>
+    <div id="address"></div>
+  </div>
+
+  <button class="btn" onclick="goHome()">Continue Shopping</button>
+</div>
+
+<script>
+/* GENERATE ORDER ID */
+document.getElementById("orderId").innerText =
+  "ORD" + Math.floor(Math.random() * 1000000);
+
+/* LOAD DATA */
+const address = JSON.parse(localStorage.getItem("address")) || {};
+const lastOrder = JSON.parse(localStorage.getItem("lastOrder")) || [];
+const itemsDiv = document.getElementById("items");
+let total = 0;
+
+/* CART ITEMS (FROM LAST SESSION MEMORY) */
+const cartBackup = JSON.parse(localStorage.getItem("cartBackup")) || [];
+
+cartBackup.forEach(item => {
+  total += item.price * item.qty;
+  const div = document.createElement("div");
+  div.className = "item";
+  div.innerText = `${item.name} x ${item.qty} — ₹${item.price * item.qty}`;
+  itemsDiv.appendChild(div);
+});
+
+document.getElementById("total").innerText = total;
+
+/* ADDRESS */
+document.getElementById("address").innerHTML = `
+  ${address.name}<br>
+  ${address.address}<br>
+  ${address.city}, ${address.state} - ${address.pincode}<br>
+  Phone: ${address.phone}
+`;
+
+/* CONTINUE */
+function goHome() {
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
